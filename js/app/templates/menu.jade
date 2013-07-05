@@ -1,0 +1,30 @@
+- if (items.length)
+    - items.forEach(function(item){
+        - if (item.name == active)
+            li.active(class="#{item.className}")
+                - if (item.type != "text")
+                    a(href="#{item.link}")
+                        - if (item.icon)
+                            i(class="icon-#{item.icon}")
+                            &nbsp;
+                        | #{item.title}
+                - else
+                    - if (item.icon)
+                        i(class="icon-#{item.icon}")
+                        &nbsp;
+                    | #{item.title}
+        - else
+            li(class="#{item.className}")
+                - if (item.type != "text")
+                    a(href="#{item.link}")
+                        - if (item.icon)
+                            i(class="icon-#{item.icon}")
+                            &nbsp;
+                        | #{item.title}
+                - else
+                    - if (item.icon)
+                        i(class="icon-#{item.icon}")
+                        &nbsp;
+                    | #{item.title}
+
+    - })

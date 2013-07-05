@@ -1,0 +1,27 @@
+div.navbar.navbar-inverse.navbar-fixed-top
+    div.navbar-inner
+        div.container-fluid
+            a.brand(href="#")
+                | Project name
+            div.nav-collapse.collapse
+                ul#menu.nav
+                form.navbar-form.pull-right(style="width: 417px")
+                    input.span2(type="text",placeholder="Email")
+                    &nbsp;
+                    input.span2(type="password",placeholder="Password")
+                    &nbsp;
+                    button.btn(type="submit") Sign in
+
+div.container-fluid
+    div.row-fluid
+        div.span3
+            div.well.sidebar-nav
+                ul.nav.nav-list#left-menu
+        div.span9
+            div.page-header
+                h1#header
+            div.alert.hide#messages
+            div.well#main-area
+    hr
+    footer
+        p &copy; Company 2013

@@ -7,23 +7,11 @@ define (require, exports, module) ->
   class Menu extends Backbone.View
     tagName: "ul"
     template: template
-    active: "",
     attributes:
       "class": "nav"
 
-    initialize: ->
-      if (@options.items?)
-          @items = @options.items
-          delete @options.items
-
-
-      if (@options.active?)
-          @active = @options.active
-          delete @options.active
-
-
     render: ->
-      el = this.template {items: this.items, active: this.active}
+      el = this.template items: this.options.items, active: this.options.active
       $(@el).html(el);
       $(@el).addClass("nav"); this
 

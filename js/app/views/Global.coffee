@@ -15,8 +15,8 @@ define (require, exports, module) ->
 
     setActiveMenu: (active) ->
       return @ unless @menu?
-      @menu.active = active
-      @leftMenu.active = active
+      @menu.options.active = active
+      @leftMenu.options.active = active
       @showMenus(); this
 
     setTitle: (string) ->

@@ -1,39 +1,97 @@
+
 define (require, exports, module) ->
-  Backbone = require "backbone"
-  Item = require "cs!views/form/FormItem"
-  Button = require "cs!views/form/Button"
-  class Form extends Backbone.View
-    tagName: "form"
-    constructor: ->
-      Backbone.View.apply @, arguments
-      if (@options.model?)
-        @options.model.on "invalid", (model, errors) =>
-          for index, error of errors
-            @items[error.field].showError error.message if (@items[error.field]?)
+    Backbone = require "backbone"
+    $ = require "jquery"
+    Form = require "cs!library/views/Form"
+    TestModel = require "cs!models/Test"
+    class Test extends Backbone.View
+        tagName: "div",
+        active: "",
+        attributes:
+            "class": "nav"
+        events:
+          "click #submit": "getValues"
+          "click #submit2": "submit2"
+        submit2: ->
+          @model.set
+            username: "bla"
+            "user-type": 2
+        getValues: ->
 
-    render: ->
-      for item in @options.items then do (item) =>
-        items = @items ?= {}
-        items[item.name] = new Item item
-        items[item.name].render()
-        $(@el).append items[item.name].el
-      if (@options.buttons?)
-        buttonsItem = new Item {type: "button"}
-        buttonsItem.render()
-        buttonsElement = $(buttonsItem.el).find(".controls")
-        for item in @options.buttons then do (item) =>
-          buttons = @buttons ?= {}
-          buttons[item.name] = new Button item
-          buttons[item.name].render()
-          buttonsElement.append buttons[item.name].el
-          buttonsElement.append "&nbsp;"
+          #console.log(@form.getValues())
+          @model.set(@form.getValues())
+          @model.isValid()
+        render: ->
+          items = [
+            {
+              name: "username"
+              title: "Username"
+              params:
+                placeholder: "Username"
+            },
+            {
+              name: "password"
+              title: "Password"
+              params:
+                type: "password"
+                placeholder: "password"
+            },
+            {
+              name: "user-type"
+              title: "User Type"
+              type: "combobox"
+              items: [
+                {
+                  value: 1
+                  label: "Admin"
+                },
+                {
+                  value: 2
+                  label: "Moderator"
+                },
+                {
+                  value: 3
+                  label: "User"
+                }
+              ]
+            },
+            {
+              name: "autocomplete"
+              title: "Autocomplete"
+              autocomplete: {
+                source: ["A", "ab", "aaab"]
+              }
+            }
+          ]
+          buttons = [
+            {
+              type: "submit",
+              params:
+                class: "btn btn-primary"
+              title: "Submit"
+              name: "submit"
+            },
+            {
+              type: "submit2",
+              params:
+                class: "btn"
+              title: "Submit2"
+              name: "submit2"
+            }
+          ]
+          @model = new TestModel(
+            username: "shura"
+          )
+          @form = new Form {
+            items: items
+            model: @model
+            buttons: buttons
+            attributes:
+              class: "form-horizontal"
+          }
 
-        $(@el).append buttonsItem.el
-      return this
+          $(@el).html @form.render().el
 
-    getValues: ->
-      values = {}
-      for key, value of @items
-        values[key] = $(value.el).find("#" + key).val()
-      return values
-  module.exports = Form
+          return this;
+
+    module.exports = Test

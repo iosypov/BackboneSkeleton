@@ -1,6 +1,9 @@
 define (require, exports, module) ->
   Backbone = require "backbone"
   class Test extends Backbone.Model
+    defaults:
+      username: "ozzy123"
+      "user-type": 3
     validate: (attrs, options) ->
       errors = []
       if (attrs.username == "uebok")

@@ -1,11 +1,6 @@
 define (require, exports, module) ->
   module.exports = [
-    {
-        name: "sidebar",
-        title: "Sidebar",
-        className: "nav-header",
-        type: "text"
-    },
+
     {
         name: "home",
         link: "#",
@@ -18,19 +13,14 @@ define (require, exports, module) ->
         title: "Help"
     },
     {
-        name: "sidebar",
-        title: "Sidebar",
+        name: "examples",
+        title: "Examples",
         className: "nav-header",
         type: "text"
     },
     {
-        name: "home",
-        link: "#",
-        title: "Home"
-    },
-    {
-        name: "help",
-        link: "#help",
-        title: "Help"
+        name: "form",
+        link: "#form",
+        title: "Form"
     }
   ]

@@ -981,6 +981,7 @@
   // Creating a Backbone.View creates its initial element outside of the DOM,
   // if an existing element is not provided...
   var View = Backbone.View = function(options) {
+
     this.cid = _.uniqueId('view');
     this._configure(options || {});
     this._ensureElement();

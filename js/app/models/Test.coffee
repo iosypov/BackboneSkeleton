@@ -3,7 +3,7 @@ define (require, exports, module) ->
   class Test extends Backbone.Model
     defaults:
       username: "ozzy123"
-      "user-type": 3
+      "user-type": 1
     validate: (attrs, options) ->
       errors = []
       if (attrs.username == "uebok")

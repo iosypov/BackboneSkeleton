@@ -4,6 +4,7 @@ define (require, exports, module) ->
     $ = require "jquery"
     Form = require "cs!library/views/Form"
     TestModel = require "cs!models/Test"
+    UserTypeCollection = require "cs!collections/UserType"
     class Test extends Backbone.View
         tagName: "div",
         active: "",
@@ -21,9 +22,35 @@ define (require, exports, module) ->
         getValues: ->
 
           #console.log(@form.getValues())
+          console.log @form.getValues()
           @model.set(@form.getValues())
           @model.isValid()
+          @userTypes.set [
+              {
+                label: "Test"
+                value: "Test"
+              }
+              {
+                label: "Test1"
+                value: "Test1"
+              }
+            ]
         render: ->
+          @userTypes = new UserTypeCollection [
+              {
+                value: 1
+                label: "Admin"
+              },
+              {
+                value: 2
+                label: "Moderator"
+              },
+              {
+                value: 3
+                label: "User"
+              }
+            ]
+          console.log @userTypes
           items = [
             {
               name: "username"
@@ -42,20 +69,7 @@ define (require, exports, module) ->
               name: "user-type"
               title: "User Type"
               type: "combobox"
-              items: [
-                {
-                  value: 1
-                  label: "Admin"
-                },
-                {
-                  value: 2
-                  label: "Moderator"
-                },
-                {
-                  value: 3
-                  label: "User"
-                }
-              ]
+              collection: @userTypes
             },
             {
               name: "checkbox"

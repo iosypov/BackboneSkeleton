@@ -5,7 +5,7 @@ define (require, exports, module) ->
     tagName: "div"
     setValue: (values) ->
       @$el.find("input").prop "checked", false
-      for index, value of values
+      for value in values
         @items[value].setChecked() if @items[value]
     render: ->
       @$el.html ""

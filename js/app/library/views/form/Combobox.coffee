@@ -3,6 +3,24 @@ define (require, exports, module) ->
   Option = require "cs!library/views/form/Option"
   class Combobox extends Backbone.View
     tagName: "select"
+    constructor: ->
+      Backbone.View.apply @, arguments
+      if (@options.collection?)
+        @valueAttribute = @options.collection.valueAttribute ?= "value"
+        @labelAttribute = @options.collection.labelAttribute ?= "label"
+        @options.collection.on "add", (model) =>
+          optionList = @optionList ?= {}
+          item = {}
+          item.model = model
+          item.value = model.get @valueAttribute
+          item.label = model.get @labelAttribute
+          item.selected = true if (item.value == @options.value)
+          optionList[item.value] = new Option item
+          $(@el).append optionList[item.value].render().el
+          @options.items.push item
+        @options.collection.on "remove", (model) =>
+          @optionList[model.get @valueAttribute].$el.remove()
+          delete @optionList[model.get @valueAttribute]
     setValue: (value) ->
       $(@el).val value
     render: ->
@@ -10,11 +28,18 @@ define (require, exports, module) ->
         for key, value of @options.params
           @$el.attr key, value
       optionList = @optionList ?= {}
-      if (@options.items)
-        for value in @options.items
-          value.selected = true if (value.value == @options.value)
-          optionList[value.value] = new Option value
-          $(@el).append optionList[value.value].render().el
+      @options.items = [] unless @options.items
+      if @options.collection
+        @options.collection.each (model) =>
+          item = {}
+          item.model = model
+          item.value = model.get @valueAttribute
+          item.label = model.get @labelAttribute
+          @options.items.push item
+      for item in @options.items
+        item.selected = true if (item.value == @options.value)
+        optionList[item.value] = new Option item
+        $(@el).append optionList[item.value].render().el
       @$el.attr "id", @options.name
       @$el.attr "name", @options.name; this
   module.exports = Combobox

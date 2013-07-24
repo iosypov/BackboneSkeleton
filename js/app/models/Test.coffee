@@ -4,6 +4,7 @@ define (require, exports, module) ->
     defaults:
       username: "ozzy123"
       "user-type": 1
+      checkbox: []
     validate: (attrs, options) ->
       errors = []
       if (attrs.username == "uebok")

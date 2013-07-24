@@ -38,7 +38,14 @@ define (require, exports, module) ->
 
     getValues: ->
       values = {}
-      for key, value of @items
-        values[key] = $(value.el).find("#" + key).val()
+      for key, item of @items
+        el = $(item.el).find("##{key}")
+        el = $(item.el).find("[name='#{key}']") if el.length == 0
+        values[key] = el.val() if el.length == 1
+        if el.length > 1
+          values[key] = []
+          for index in [0..el.length-1] by 1
+            element = el[index]
+            values[key].push $(element).val() if $(element).prop "checked"
       return values
   module.exports = Form

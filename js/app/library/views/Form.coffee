@@ -16,7 +16,9 @@ define (require, exports, module) ->
     render: ->
       for item in @options.items then do (item) =>
         items = @items ?= {}
-        item.value = @model.get item.name if (@model.has item.name)
+        field = "value"
+        field = "checked" if (item.type == "checkbox")
+        item[field] = @model.get item.name if (@model.has item.name)
         items[item.name] = new Item item
         items[item.name].render()
         $(@el).append items[item.name].el

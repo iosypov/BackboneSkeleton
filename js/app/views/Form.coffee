@@ -13,9 +13,11 @@ define (require, exports, module) ->
           "click #submit": "getValues"
           "click #submit2": "submit2"
         submit2: ->
+          @model.set(@form.getValues())
           @model.set
             username: "bla"
             "user-type": 2
+            checkbox: ["label2"]
         getValues: ->
 
           #console.log(@form.getValues())
@@ -56,6 +58,22 @@ define (require, exports, module) ->
               ]
             },
             {
+              name: "checkbox"
+              title: "Checkbox"
+              type: "checkboxgroup"
+              label: "Label"
+              items: [
+                {
+                  label: "Label1"
+                  value: "label1"
+                },
+                {
+                  label: "Label2"
+                  value: "label2"
+                }
+              ]
+            }
+            {
               name: "autocomplete"
               title: "Autocomplete"
               autocomplete: {
@@ -81,6 +99,7 @@ define (require, exports, module) ->
           ]
           @model = new TestModel(
             username: "shura"
+            checkbox: ["label1"]
           )
           @form = new Form {
             items: items

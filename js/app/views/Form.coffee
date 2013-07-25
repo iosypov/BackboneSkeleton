@@ -32,7 +32,7 @@ define (require, exports, module) ->
               }
               {
                 label: "Test1"
-                value: "Test1"
+                value: "test1"
               }
             ]
         render: ->
@@ -50,7 +50,6 @@ define (require, exports, module) ->
                 label: "User"
               }
             ]
-          console.log @userTypes
           items = [
             {
               name: "username"
@@ -70,6 +69,7 @@ define (require, exports, module) ->
               title: "User Type"
               type: "combobox"
               collection: @userTypes
+              select2: {}
             },
             {
               name: "checkbox"

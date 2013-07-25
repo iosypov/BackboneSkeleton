@@ -17,7 +17,8 @@ require.config({
         text: "../../assets/require/text",
         jade: "../../assets/jade/jade",
         cs : '../../assets/coffee-script/cs' ,
-        'coffee-script' : '../../assets/coffee-script/coffee-script'
+        'coffee-script' : '../../assets/coffee-script/coffee-script',
+        'select2' : '../../assets/select2/select2.min'
 
     },
 
@@ -30,7 +31,8 @@ require.config({
         "underscore",
         "bootstrap",
         "text",
-        "jade"
+        "jade",
+        "select2"
     ],
 
     shim: {
@@ -45,7 +47,7 @@ require.config({
         bootstrap: {
             deps: ['jquery']
         },
-        bootstrap: {
+        select2: {
             deps: ['jquery']
         }
 
@@ -59,7 +61,8 @@ require([
     'cs!application',
     'bootstrap',
     "text",
-    "jade"
+    "jade",
+    "select2"
 
 ],
     function($, _, Backbone, app){

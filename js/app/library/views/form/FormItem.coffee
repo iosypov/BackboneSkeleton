@@ -27,5 +27,6 @@ define (require, exports, module) ->
         else @element = new Input @options
 
       $(@el).find(".controls").prepend @element.render().el if (@element?)
+      @element.afterRender() if @element && @element.afterRender?
       return this
   module.exports = FormItem

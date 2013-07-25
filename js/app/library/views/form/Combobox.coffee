@@ -23,6 +23,9 @@ define (require, exports, module) ->
           delete @optionList[model.get @valueAttribute]
     setValue: (value) ->
       $(@el).val value
+      $(@el).select2 "val", value
+    afterRender: ->
+      $(@el).select2(@options.select2) if @options.select2?
     render: ->
       if (@options.params)
         for key, value of @options.params
